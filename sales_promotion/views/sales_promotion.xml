@@ -15,9 +15,31 @@
                                 <field name="name" readonly="1"/>
                             </h1>
                         </div>
-                        <group>
-                            <field name="partner_id"/>
+                        <group col="4">
+                            <field name="customer"/>
+                            <field name="order_date"/>
                         </group>
+                        <notebook>
+                            <page string="Order Items">
+                                <field name="order_items_ids">
+                                    <tree editable="bottom">
+                                        <field name="items"/>
+                                        <field name="order_qty"/>
+                                        <field name="unit_price"/>
+                                        <field name="order_id" invisible="1"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="items"/>
+                                                <field name="order_qty"/>
+                                                <field name="unit_price"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
                     </sheet>
                 </form>
             </field>
@@ -29,7 +51,8 @@
             <field name="arch" type="xml">
                 <tree string="Orders">
                     <field name="name"/>
-                    <field name="partner_id"/>
+                    <field name="customer"/>
+                    <field name="order_date"/>
                 </tree>
             </field>
         </record>
@@ -41,10 +64,7 @@
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
-                    <!-- Add Text Here -->
-                </p>
-                <p>
-                    <!-- More details about what a user can do with this object will be OK -->
+                    Create Your First Order
                 </p>
             </field>
         </record>
