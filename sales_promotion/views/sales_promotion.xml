@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- This parent Menu Item will appear in the Upper bar -->
+        <menuitem id="sales_promotion_root" name="Sales Promotion" sequence="1"/>
+
+        <record id="sales_promotion_orders_form" model="ir.ui.view">
+            <field name="name">sales.promotion.orders.form</field>
+            <field name="model">sales.promotion</field>
+            <field name="arch" type="xml">
+                <form string="Orders">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <field name="partner_id"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="sales_promotion_orders_tree" model="ir.ui.view">
+            <field name="name">sales.promotion.orders.tree</field>
+            <field name="model">sales.promotion</field>
+            <field name="arch" type="xml">
+                <tree string="Orders">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sales_promotion_orders_action" model="ir.actions.act_window">
+            <field name="name">Orders</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sales.promotion</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p>
+                <p>
+                    <!-- More details about what a user can do with this object will be OK -->
+                </p>
+            </field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="sales_promotion_orders_menu" name="Orders" parent="sales_promotion_root"
+                  action="sales_promotion_orders_action" sequence="1"/>
+
+    </data>
+</odoo>
