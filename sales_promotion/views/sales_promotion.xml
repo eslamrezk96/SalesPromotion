@@ -25,7 +25,8 @@
                                     <tree editable="bottom">
                                         <field name="items"/>
                                         <field name="order_qty"/>
-                                        <field name="unit_price"/>
+                                        <field name="price_unit"/>
+                                        <field name="price_subtotal"/>
                                         <field name="order_id" invisible="1"/>
                                     </tree>
                                     <form>
@@ -33,11 +34,20 @@
                                             <group>
                                                 <field name="items"/>
                                                 <field name="order_qty"/>
-                                                <field name="unit_price"/>
+                                                <field name="price_unit"/>
+                                                <field name="price_subtotal"/>
                                             </group>
                                         </group>
                                     </form>
                                 </field>
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                    <field name="amount_untaxed"/>
+                                    <field name="tax"/>
+                                    <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                        <label for="total"/>
+                                    </div>
+                                    <field name="total" nolabel="1" class="oe_subtotal_footer_separator"/>
+                                </group>
                             </page>
                         </notebook>
                     </sheet>
