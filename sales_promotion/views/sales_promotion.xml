@@ -63,6 +63,7 @@
                     <field name="name"/>
                     <field name="customer"/>
                     <field name="order_date"/>
+                    <field name="total" sum="Total Of Age"/>
                 </tree>
             </field>
         </record>
