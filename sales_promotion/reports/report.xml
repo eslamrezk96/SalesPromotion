@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <report
+                id="order_report"
+                model="sales.promotion"
+                string="Print Order"
+                report_type="qweb-pdf"
+                name="sales_promotion.report_order"
+                file="sales_promotion.report_order"
+                print_report_name="('Order - %s' % (object.name))"
+        />
+    </data>
+</odoo>
+

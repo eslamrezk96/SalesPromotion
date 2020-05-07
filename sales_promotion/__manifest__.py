@@ -15,6 +15,9 @@
         'security/ir.model.access.csv',
         'views/sales_promotion.xml',
         'data/sequence.xml',
+        'reports/order_report_templates.xml',
+        'reports/report.xml',
+
     ],
     # only loaded in demonstration mode
     'demo': [
