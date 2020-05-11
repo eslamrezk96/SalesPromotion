@@ -30,6 +30,7 @@
                                         <th class="text-left">Items</th>
                                         <th class="text-right">Quantity</th>
                                         <th class="text-right">Unit Price</th>
+                                        <th class="text-right">Discount</th>
 
                                         <th class="text-right">
                                             <t groups="account.group_show_line_subtotals_tax_excluded">Subtotal</t>
@@ -50,6 +51,9 @@
                                                 <td class="text-right">
                                                     <span t-field="line.price_unit"/>
                                                 </td>
+                                                <td class="text-right">
+                                                    <span t-field="line.discount"/>
+                                                </td>
                                                 <td class="text-right o_price_total">
                                                     <span t-field="line.price_subtotal"
                                                           groups="account.group_show_line_subtotals_tax_excluded"/>
@@ -65,7 +69,15 @@
                                         <table class="table table-sm">
                                             <tr class="border-black">
                                                 <td>
-                                                    <strong>Subtotal</strong>
+                                                    <strong>Total With Out Discount</strong>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span t-field="o.total_with_out_dis"/>
+                                                </td>
+                                            </tr>
+                                            <tr class="border-black">
+                                                <td>
+                                                    <strong>Total After Discount</strong>
                                                 </td>
                                                 <td class="text-right">
                                                     <span t-field="o.amount_untaxed"/>
