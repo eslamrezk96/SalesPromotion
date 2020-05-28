@@ -9,10 +9,6 @@
             <field name="model">sales.promotion</field>
             <field name="arch" type="xml">
                 <form string="Orders">
-                    <header>
-                        <button name="apply_promotion" string="Apply Promotion"
-                                class="oe_highlight" type="object"/>
-                    </header>
                     <sheet>
                         <div class="oe_title">
                             <h1>
@@ -23,40 +19,18 @@
                             <field name="customer"/>
                             <field name="order_date"/>
                         </group>
-                        <notebook>
-                            <page string="Order Items">
-                                <field name="order_items_ids">
-                                    <tree editable="bottom">
-                                        <field name="items"/>
-                                        <field name="order_qty"/>
-                                        <field name="price_unit"/>
-                                        <field name="discount"/>
-                                        <field name="price_subtotal"/>
-                                        <field name="order_id" invisible="1"/>
-                                    </tree>
-                                    <form>
-                                        <group>
-                                            <group>
-                                                <field name="items"/>
-                                                <field name="order_qty"/>
-                                                <field name="price_unit"/>
-                                                <field name="discount"/>
-                                                <field name="price_subtotal"/>
-                                            </group>
-                                        </group>
-                                    </form>
-                                </field>
-                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
-                                    <field name="total_with_out_dis"/>
-                                    <field name="amount_untaxed"/>
-                                    <field name="tax"/>
-                                    <div class="oe_subtotal_footer_separator oe_inline o_td_label">
-                                        <label for="total"/>
-                                    </div>
-                                    <field name="total" nolabel="1" class="oe_subtotal_footer_separator"/>
-                                </group>
-                            </page>
-                        </notebook>
+                        <group>
+                            <group>
+                                <field name="state"/>
+                                <field name="items"/>
+                                <field name="discount" attrs="{'invisible': [('state', '!=', 'get_disc')]}"/>
+                                <field name="free_items" attrs="{'invisible': [('state', '!=', 'buy_2_get_1')]}"/>
+                            </group>
+                            <group>
+                                <field name="order_qty"/>
+                                <field name="price_unit"/>
+                            </group>
+                        </group>
                     </sheet>
                 </form>
             </field>
@@ -70,7 +44,6 @@
                     <field name="name"/>
                     <field name="customer"/>
                     <field name="order_date"/>
-                    <field name="total" sum="Total Of Age"/>
                 </tree>
             </field>
         </record>
