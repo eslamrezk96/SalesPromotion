@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- This parent Menu Item will appear in the Upper bar -->
+        <menuitem id="sales_order_root" name="Sales" sequence="1"/>
+
+        <record id="sales_order_form" model="ir.ui.view">
+            <field name="name">sales.order.orders.form</field>
+            <field name="model">sales.order</field>
+            <field name="arch" type="xml">
+                <form string="Orders">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        <group col="4">
+                            <field name="customer"/>
+                            <field name="order_date"/>
+                        </group>
+                        <notebook>
+                            <page string="Order Items">
+                                <field name="order_items_ids">
+                                    <tree editable="bottom">
+                                        <field name="items"/>
+                                        <field name="order_qty"/>
+                                        <field name="price_unit"/>
+                                        <field name="discount"/>
+                                        <field name="price_subtotal"/>
+                                        <field name="order_id" invisible="1"/>
+                                    </tree>
+                                    <form>
+                                        <group>
+                                            <group>
+                                                <field name="items"/>
+                                                <field name="order_qty"/>
+                                                <field name="price_unit"/>
+                                                <field name="discount"/>
+                                                <field name="price_subtotal"/>
+                                            </group>
+                                        </group>
+                                    </form>
+                                </field>
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                    <field name="total_with_out_dis"/>
+                                    <field name="amount_untaxed"/>
+                                    <field name="tax"/>
+                                    <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                        <label for="total"/>
+                                    </div>
+                                    <field name="total" nolabel="1" class="oe_subtotal_footer_separator"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="sales_orders_tree" model="ir.ui.view">
+            <field name="name">sales.order.orders.tree</field>
+            <field name="model">sales.order</field>
+            <field name="arch" type="xml">
+                <tree string="Orders">
+                    <field name="name"/>
+                    <field name="customer"/>
+                    <field name="order_date"/>
+                    <field name="total" sum="Total Of Age"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="sales_orders_action" model="ir.actions.act_window">
+            <field name="name">Sale Order</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sales.order</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Your First Order
+                </p>
+            </field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="sales_orders_menu" name="Sale Order" parent="sales_order_root"
+                  action="sales_orders_action" sequence="2"/>
+
+    </data>
+</odoo>

@@ -13,6 +13,7 @@
     # always loaded
     'data': [
         'security/ir.model.access.csv',
+        'views/sales_order.xml',
         'views/sales_promotion.xml',
         'data/sequence.xml',
         'reports/order_report_templates.xml',

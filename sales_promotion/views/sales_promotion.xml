@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <data>
-        <!-- This parent Menu Item will appear in the Upper bar -->
-        <menuitem id="sales_promotion_root" name="Sales Promotion" sequence="1"/>
 
         <record id="sales_promotion_orders_form" model="ir.ui.view">
             <field name="name">sales.promotion.orders.form</field>
@@ -10,11 +8,11 @@
             <field name="arch" type="xml">
                 <form string="Orders">
                     <sheet>
-                        <div class="oe_title">
-                            <h1>
-                                <field name="name" readonly="1"/>
-                            </h1>
-                        </div>
+<!--                        <div class="oe_title">-->
+<!--                            <h1>-->
+<!--                                <field name="name" readonly="1"/>-->
+<!--                            </h1>-->
+<!--                        </div>-->
                         <group col="4">
                             <field name="customer"/>
                             <field name="order_date"/>
@@ -49,20 +47,20 @@
         </record>
 
         <record id="sales_promotion_orders_action" model="ir.actions.act_window">
-            <field name="name">Orders</field>
+            <field name="name">Get Sale Promotion</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">sales.promotion</field>
             <field name="view_mode">tree,form</field>
             <field name="help" type="html">
                 <p class="oe_view_nocontent_create">
-                    Create Your First Order
+                    Create Your First Promotion
                 </p>
             </field>
         </record>
 
         <!-- This Menu Item must have a parent and an action -->
-        <menuitem id="sales_promotion_orders_menu" name="Orders" parent="sales_promotion_root"
-                  action="sales_promotion_orders_action" sequence="1"/>
+        <menuitem id="sales_promotion_orders_menu" name="Get Sale Promotion" parent="sales_order_root"
+                  action="sales_promotion_orders_action" sequence="3"/>
 
     </data>
 </odoo>
