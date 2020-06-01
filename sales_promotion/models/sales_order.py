@@ -13,9 +13,7 @@ class SalesOrder(models.Model):
     customer = fields.Char(string="Customer", required=True, )
     order_date = fields.Datetime(string="Order Date", required=True, )
     order_items_ids = fields.One2many(comodel_name="sales.items", inverse_name="order_id", string='Order Items')
-    total_with_out_dis = fields.Float(string='Total With Out Discount', readonly=True, compute='_amount_all_with_dis',
-                                      store=True)
-    amount_untaxed = fields.Float(string='Total After Discount', readonly=True, compute='_amount_all', store=True)
+    amount_untaxed = fields.Float(string='Total Untaxed', readonly=True, compute='_amount_all', store=True)
     tax = fields.Float(string='Tax', readonly=True, compute='_compute_tax', store=True)
     total = fields.Float(string='Total', readonly=True, compute='_compute_total', store=True)
 
@@ -25,19 +23,6 @@ class SalesOrder(models.Model):
             vals['name'] = self.env['ir.sequence'].next_by_code('sales.order.sequence') or _('New')
         result = super(SalesOrder, self).create(vals)
         return result
-
-    @api.depends('order_items_ids.price_unit','order_items_ids.order_qty')
-    def _amount_all_with_dis(self):
-        """
-              compute the all total of the order items with out discount
-        """
-        for order in self:
-            total_with_out_dis = 0.0
-            for line in order.order_items_ids:
-                total_with_out_dis += line.price_unit * line.order_qty
-            order.update({
-                'total_with_out_dis': total_with_out_dis,
-            })
 
     @api.depends('order_items_ids.price_subtotal')
     def _amount_all(self):
@@ -73,13 +58,12 @@ class SalesItems(models.Model):
     items = fields.Char(string="Items", required=True, )
     order_qty = fields.Integer(string="Order Qty", required=True, )
     price_unit = fields.Float('Unit Price', required=True, default=0.0)
-    discount = fields.Float('Discount', required=True, default=0.0)
     price_subtotal = fields.Float(compute='_compute_amount_subtotal', string='Subtotal', readonly=True, store=True)
 
-    @api.depends('order_qty', 'price_unit', 'discount')
+    @api.depends('order_qty', 'price_unit')
     def _compute_amount_subtotal(self):
         """
                 compute the subtotal of the order item
         """
         for lines in self:
-            lines.price_subtotal = (lines.price_unit * lines.order_qty) + lines.discount
+            lines.price_subtotal = lines.price_unit * lines.order_qty
