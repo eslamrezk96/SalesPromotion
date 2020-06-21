@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="items_form" model="ir.ui.view">
+            <field name="name">items.form</field>
+            <field name="model">items</field>
+            <field name="arch" type="xml">
+                <form string="Items">
+                    <sheet>
+                        <group col="4">
+                            <field name="name"/>
+                            <field name="price_item"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="items_tree" model="ir.ui.view">
+            <field name="name">items.tree</field>
+            <field name="model">items</field>
+            <field name="arch" type="xml">
+                <tree string="Items">
+                    <field name="name"/>
+                    <field name="price_item"/>
+                </tree>
+            </field>
+        </record>
+        <record id="items_action" model="ir.actions.act_window">
+            <field name="name">Items</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">items</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Your First Item
+                </p>
+            </field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem id="items_menu" name="Items" parent="sales_order_root" action="items_action" sequence="4"/>
+
+
+    </data>
+</odoo>

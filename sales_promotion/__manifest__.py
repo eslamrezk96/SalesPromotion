@@ -15,6 +15,7 @@
         'security/ir.model.access.csv',
         'views/sales_order.xml',
         'views/sales_promotion.xml',
+        'views/items.xml',
         'data/sequence.xml',
         'reports/order_report_templates.xml',
         'reports/report.xml',

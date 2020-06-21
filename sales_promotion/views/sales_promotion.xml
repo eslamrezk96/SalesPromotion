@@ -6,7 +6,7 @@
             <field name="name">sales.promotion.orders.form</field>
             <field name="model">sales.promotion</field>
             <field name="arch" type="xml">
-                <form string="Orders">
+                <form>
                     <sheet>
                         <div class="oe_title">
                             <h1>
@@ -15,18 +15,17 @@
                         </div>
                         <group col="4">
                             <field name="customer"/>
-                            <field name="order_date"/>
+                            <field name="promotion_date"/>
                         </group>
                         <group>
                             <group>
                                 <field name="state"/>
                                 <field name="items"/>
-                                <field name="discount" attrs="{'invisible': [('state', '!=', 'get_disc')]}"/>
-                                <field name="free_items" attrs="{'invisible': [('state', '!=', 'buy_2_get_1')]}"/>
+                                <field name="item_qty"/>
                             </group>
                             <group>
-                                <field name="order_qty"/>
-                                <field name="price_unit"/>
+                                <field name="discount" attrs="{'invisible': [('state', '!=', 'get_disc')]}"/>
+                                <field name="free_item" attrs="{'invisible': [('state', '!=', 'buy_x_get_y')]}"/>
                             </group>
                         </group>
                     </sheet>
@@ -38,10 +37,10 @@
             <field name="name">sales.promotion.orders.tree</field>
             <field name="model">sales.promotion</field>
             <field name="arch" type="xml">
-                <tree string="Orders">
+                <tree>
                     <field name="name"/>
                     <field name="customer"/>
-                    <field name="order_date"/>
+                    <field name="promotion_date"/>
                 </tree>
             </field>
         </record>
