@@ -55,9 +55,9 @@ class SalesItems(models.Model):
     _name = 'sales.items'
 
     order_id = fields.Many2one(comodel_name="sales.order", string="Order Items")
-    items = fields.Char(string="Items", required=True, )
-    order_qty = fields.Integer(string="Order Qty", required=True, )
-    price_unit = fields.Float('Unit Price', required=True, default=0.0)
+    items = fields.Many2one(comodel_name="items", string="Items", required=True, )
+    order_qty = fields.Integer(string="Order Qty", required=True,)
+    price_unit = fields.Float('Unit Price', required=True, default=0.0, related='items.price_item')
     price_subtotal = fields.Float(compute='_compute_amount_subtotal', string='Subtotal', readonly=True, store=True)
 
     @api.depends('order_qty', 'price_unit')
