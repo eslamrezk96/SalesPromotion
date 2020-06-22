@@ -17,6 +17,7 @@
         'views/sales_promotion.xml',
         'views/items.xml',
         'data/sequence.xml',
+        'data/data.xml',
         'reports/order_report_templates.xml',
         'reports/report.xml',
 
