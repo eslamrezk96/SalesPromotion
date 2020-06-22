@@ -20,14 +20,6 @@ class SalesPromotion(models.Model):
 
     customer = fields.Char(string="Customer", required=True, )
     promotion_date = fields.Datetime(string="Promotion Date", required=True, )
-    sales_promotion_line_ids = fields.One2many(comodel_name="sales.promotion.line", inverse_name="sales_promotion_id",
-                                               string="Sales Promotion Line", )
-
-
-class SalesPromotionLine(models.Model):
-    _name = 'sales.promotion.line'
-
-    sales_promotion_id = fields.Many2one(comodel_name="sales.promotion", string="Sales Promotion", )
     state = fields.Selection(string="Get Offer",
                              selection=[('buy_x_get_y', 'Buy X Items and get Y free'),
                                         ('get_disc', 'Discount'), ], )

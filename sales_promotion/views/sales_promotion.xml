@@ -17,24 +17,21 @@
                             <field name="customer"/>
                             <field name="promotion_date"/>
                         </group>
-                        <notebook>
-                            <page string="Sales Promotion">
-                                <field name="sales_promotion_line_ids">
-                                    <tree editable="bottom">
-                                        <field name="sales_promotion_id" invisible="1"/>
-                                        <field name="state"/>
-                                        <field name="items"/>
-                                        <field name="price_unit"/>
-                                        <field name="item_qty"/>
-                                        <field name="free_item"
-                                               attrs="{'invisible': [('state', '!=', 'buy_x_get_y')]}"/>
-                                        <field name="discount"
-                                               attrs="{'invisible': [('state', '!=', 'get_disc')]}"/>
-                                        <field name="total"/>
-                                    </tree>
-                                </field>
-                            </page>
-                        </notebook>
+                        <group>
+                            <group>
+                                <field name="state"/>
+                                <field name="items"/>
+                                <field name="price_unit"/>
+                                <field name="item_qty"/>
+                            </group>
+                            <group>
+                                <field name="free_item"
+                                       attrs="{'invisible': [('state', '!=', 'buy_x_get_y')]}"/>
+                                <field name="discount"
+                                       attrs="{'invisible': [('state', '!=', 'get_disc')]}"/>
+                                <field name="total"/>
+                            </group>
+                        </group>
                     </sheet>
                 </form>
             </field>
