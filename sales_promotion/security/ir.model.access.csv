@@ -2,4 +2,5 @@ id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_sales_order,Sales Order,model_sales_order,,1,1,1,1
 access_sales_items,Sales Items,model_sales_items,,1,1,1,1
 access_sales_promotion,Sales Promotion,model_sales_promotion,,1,1,1,1
+access_sales_promotion_line,Sales Promotion Line,model_sales_promotion_line,,1,1,1,1
 access_items,Items,model_items,,1,1,1,1
