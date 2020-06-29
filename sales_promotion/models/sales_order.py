@@ -16,6 +16,7 @@ class SalesOrder(models.Model):
     amount_untaxed = fields.Float(string='Total Untaxed', readonly=True, compute='_amount_all', store=True)
     tax = fields.Float(string='Tax', readonly=True, compute='_compute_tax', store=True)
     total = fields.Float(string='Total', readonly=True, compute='_compute_total', store=True)
+    promotion = fields.Many2one(comodel_name="sales.promotion", string="Promotion")
 
     @api.model
     def create(self, vals):
@@ -50,6 +51,12 @@ class SalesOrder(models.Model):
         for line in self:
             line.total = line.amount_untaxed + line.tax
 
+    @api.multi
+    def apply_promotion(self):
+        order_items = self.env['sales.items']
+        for record in self:
+            order_count = order_items.search_count([('order_id','=', record.id)])
+        print('order_count',order_count)
 
 class SalesItems(models.Model):
     _name = 'sales.items'
@@ -67,3 +74,4 @@ class SalesItems(models.Model):
         """
         for lines in self:
             lines.price_subtotal = lines.price_unit * lines.order_qty
+

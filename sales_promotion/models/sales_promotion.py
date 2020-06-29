@@ -26,7 +26,7 @@ class SalesPromotion(models.Model):
     items = fields.Many2one(comodel_name="items", string="Items", required=True, )
     price_unit = fields.Float('Unit Price', required=True, default=0.0, related='items.price_item')
     free_item = fields.Many2one(comodel_name="items", string="Free Items", )
-    item_qty = fields.Integer(string="Items Qty", required=True, )
+    item_qty = fields.Integer(string="Items Qty", required=True, default=0.0)
     discount = fields.Float('Discount %', required=True, default=0.0)
     total = fields.Float('Total', required=True, default=0.0, compute='compute_total', sort=True)
 

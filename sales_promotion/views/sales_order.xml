@@ -9,6 +9,10 @@
             <field name="model">sales.order</field>
             <field name="arch" type="xml">
                 <form string="Orders">
+                    <header>
+                        <button name="apply_promotion" string="Apply Promotion"
+                                class="oe_highlight" type="object"/>
+                    </header>
                     <sheet>
                         <div class="oe_title">
                             <h1>
@@ -18,6 +22,7 @@
                         <group col="4">
                             <field name="customer"/>
                             <field name="order_date"/>
+                            <field name="promotion"/>
                         </group>
                         <notebook>
                             <page string="Order Items">
