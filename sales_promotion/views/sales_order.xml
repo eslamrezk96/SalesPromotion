@@ -22,7 +22,8 @@
                         <group col="4">
                             <field name="customer"/>
                             <field name="order_date"/>
-                            <field name="promotion"/>
+                            <field name="promotion" attrs="{'invisible':[('hide', '=', False)]}"/>
+                            <field name="hide" invisible="1"/>
                         </group>
                         <notebook>
                             <page string="Order Items">

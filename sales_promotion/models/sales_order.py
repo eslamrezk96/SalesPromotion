@@ -17,6 +17,7 @@ class SalesOrder(models.Model):
     tax = fields.Float(string='Tax', readonly=True, compute='_compute_tax', store=True)
     total = fields.Float(string='Total', readonly=True, compute='_compute_total', store=True)
     promotion = fields.Many2one(comodel_name="sales.promotion", string="Promotion")
+    hide = fields.Boolean(string='Hide', compute="apply_promotion")
 
     @api.model
     def create(self, vals):
@@ -56,7 +57,11 @@ class SalesOrder(models.Model):
         order_items = self.env['sales.items']
         for record in self:
             order_count = order_items.search_count([('order_id','=', record.id)])
-        print('order_count',order_count)
+        if order_count > 2:
+            self.hide = True
+        else:
+            self.hide = False
+
 
 class SalesItems(models.Model):
     _name = 'sales.items'
