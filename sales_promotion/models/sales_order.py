@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields, api, _
+from odoo.exceptions import ValidationError
 
 
 class SalesOrder(models.Model):
@@ -16,8 +17,9 @@ class SalesOrder(models.Model):
     amount_untaxed = fields.Float(string='Total Untaxed', readonly=True, compute='_amount_all', store=True)
     tax = fields.Float(string='Tax', readonly=True, compute='_compute_tax', store=True)
     total = fields.Float(string='Total', readonly=True, compute='_compute_total', store=True)
-    promotion = fields.Many2one(comodel_name="sales.promotion", string="Promotion")
-    hide = fields.Boolean(string='Hide', compute="apply_promotion")
+    button_clicked = fields.Boolean(string='Button clicked',default=False,)
+
+    # hide = fields.Boolean(string='Hide', compute="apply_promotion")
 
     @api.model
     def create(self, vals):
@@ -54,13 +56,35 @@ class SalesOrder(models.Model):
 
     @api.multi
     def apply_promotion(self):
-        order_items = self.env['sales.items']
-        for record in self:
-            order_count = order_items.search_count([('order_id','=', record.id)])
-        if order_count > 2:
-            self.hide = True
-        else:
-            self.hide = False
+        self.write({
+            'button_clicked': True,
+        })
+        order_item = self.env['sales.items'].search([('order_id', '=', self.id)])
+        promotion = self.env['sales.promotion'].search([])
+        for rec in order_item:
+            for rec_pro in promotion:
+                if (rec.items == rec_pro.items) and (rec.order_qty >= rec_pro.item_qty):
+                    if rec_pro.free_item.id:
+                        self.env['sales.items'].create({
+                            'order_id': self.id,
+                            'items': rec_pro.free_item.id,
+                            'order_qty': 0,
+                        })
+                    else:
+                        rec.update({
+                            'price_subtotal': rec.price_subtotal - ((rec.price_subtotal * rec_pro.discount) / 100),
+                        })
+
+    # @api.multi
+    # def apply_promotion(self):
+    #     order_items = self.env['sales.items']
+    #     for record in self:
+    #         order_count = order_items.search_count([('order_id','=', record.id)])
+    #     if order_count > 2:
+    #         self.hide = True
+    #     else:
+    #         self.hide = False
+    #
 
 
 class SalesItems(models.Model):
@@ -68,7 +92,7 @@ class SalesItems(models.Model):
 
     order_id = fields.Many2one(comodel_name="sales.order", string="Order Items")
     items = fields.Many2one(comodel_name="items", string="Items", required=True, )
-    order_qty = fields.Integer(string="Order Qty", required=True,)
+    order_qty = fields.Integer(string="Order Qty", required=True, default=0.0)
     price_unit = fields.Float('Unit Price', required=True, default=0.0, related='items.price_item')
     price_subtotal = fields.Float(compute='_compute_amount_subtotal', string='Subtotal', readonly=True, store=True)
 
@@ -79,4 +103,3 @@ class SalesItems(models.Model):
         """
         for lines in self:
             lines.price_subtotal = lines.price_unit * lines.order_qty
-

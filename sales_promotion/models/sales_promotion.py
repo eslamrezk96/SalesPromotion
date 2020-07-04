@@ -18,24 +18,24 @@ class SalesPromotion(models.Model):
         result = super(SalesPromotion, self).create(vals)
         return result
 
-    customer = fields.Char(string="Customer", required=True, )
+
     promotion_date = fields.Datetime(string="Promotion Date", required=True, )
-    state = fields.Selection(string="Get Offer",
+    state = fields.Selection(string="Offer",
                              selection=[('buy_x_get_y', 'Buy X Items and get Y free'),
                                         ('get_disc', 'Discount'), ], )
     items = fields.Many2one(comodel_name="items", string="Items", required=True, )
     price_unit = fields.Float('Unit Price', required=True, default=0.0, related='items.price_item')
-    free_item = fields.Many2one(comodel_name="items", string="Free Items", )
+    free_item = fields.Many2one(comodel_name="items", string="Free Items",)
     item_qty = fields.Integer(string="Items Qty", required=True, default=0.0)
     discount = fields.Float('Discount %', required=True, default=0.0)
-    total = fields.Float('Total', required=True, default=0.0, compute='compute_total', sort=True)
+    # total = fields.Float('Total', required=True, default=0.0, compute='compute_total', sort=True)
 
-    @api.depends('price_unit', 'item_qty', 'discount')
-    def compute_total(self):
-        for lines in self:
-            if lines.state == 'buy_x_get_y':
-                lines.total = lines.price_unit * lines.item_qty
-            elif lines.state == 'get_disc':
-                sub_total = lines.price_unit * lines.item_qty
-                sub_discount = (sub_total * lines.discount) / 100
-                lines.total = sub_total - sub_discount
+    # @api.depends('price_unit', 'item_qty', 'discount')
+    # def compute_total(self):
+    #     for lines in self:
+    #         if lines.state == 'buy_x_get_y':
+    #             lines.total = lines.price_unit * lines.item_qty
+    #         elif lines.state == 'get_disc':
+    #             sub_total = lines.price_unit * lines.item_qty
+    #             sub_discount = (sub_total * lines.discount) / 100
+    #             lines.total = sub_total - sub_discount

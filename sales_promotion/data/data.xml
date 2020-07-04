@@ -14,12 +14,16 @@
             <field name="price_item">5</field>
         </record>
         <record id="item_4" model="items">
-            <field name="name">قهورة</field>
+            <field name="name">قهوة</field>
             <field name="price_item">12</field>
         </record>
         <record id="item_5" model="items">
             <field name="name">عصير</field>
             <field name="price_item">10</field>
+        </record>
+        <record id="item_6" model="items">
+            <field name="name">ماء</field>
+            <field name="price_item">5</field>
         </record>
     </data>
 </odoo>

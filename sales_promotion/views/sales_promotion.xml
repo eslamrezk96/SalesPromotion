@@ -13,12 +13,9 @@
                                 <field name="name" readonly="1"/>
                             </h1>
                         </div>
-                        <group col="4">
-                            <field name="customer"/>
-                            <field name="promotion_date"/>
-                        </group>
                         <group>
                             <group>
+                                <field name="promotion_date"/>
                                 <field name="state"/>
                                 <field name="items"/>
                                 <field name="price_unit"/>
@@ -29,7 +26,6 @@
                                        attrs="{'invisible': [('state', '!=', 'buy_x_get_y')]}"/>
                                 <field name="discount"
                                        attrs="{'invisible': [('state', '!=', 'get_disc')]}"/>
-                                <field name="total"/>
                             </group>
                         </group>
                     </sheet>
@@ -43,14 +39,17 @@
             <field name="arch" type="xml">
                 <tree>
                     <field name="name"/>
-                    <field name="customer"/>
-                    <field name="promotion_date"/>
+                    <field name="state"/>
+                    <field name="items"/>
+                    <field name="item_qty"/>
+                    <field name="free_item"/>
+                    <field name="discount"/>
                 </tree>
             </field>
         </record>
 
         <record id="sales_promotion_orders_action" model="ir.actions.act_window">
-            <field name="name">Get Sale Promotion</field>
+            <field name="name">Sale Promotion</field>
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">sales.promotion</field>
             <field name="view_mode">tree,form</field>
@@ -62,7 +61,7 @@
         </record>
 
         <!-- This Menu Item must have a parent and an action -->
-        <menuitem id="sales_promotion_orders_menu" name="Get Sale Promotion" parent="sales_order_root"
+        <menuitem id="sales_promotion_orders_menu" name="Sale Promotion" parent="sales_order_root"
                   action="sales_promotion_orders_action" sequence="3"/>
 
     </data>
